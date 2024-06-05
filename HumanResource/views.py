@@ -153,3 +153,9 @@ class EditJob(View):
                 messages.warning(request, 'Enter Job title')
 
         return render(request, 'app/edit_job.html', locals())
+
+
+def careers(request):
+    jobs = Job.objects.all()
+    return render(request, 'app/careers.html')
+
