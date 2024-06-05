@@ -1,0 +1,27 @@
+{% extends 'app/index.html' %}
+
+{% load static %}
+
+{% block title %} SHORTLIST {% endblock title %}
+
+{% block body %}
+
+<div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-list-status"></i>
+      </span> Candidates (14)
+    </h3>
+    <nav aria-label="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'human-resource' %}">Human Resource</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'human-resource' %}">Shortlist Candidates</a></li>
+
+      </ol>
+
+    </nav>
+</div>
+
+
+{% endblock body %}
