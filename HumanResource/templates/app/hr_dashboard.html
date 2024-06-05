@@ -9,7 +9,7 @@
     <h3 class="page-title">
       <span class="page-title-icon bg-gradient-primary text-white me-2">
         <i class="mdi mdi-home"></i>
-      </span> Vacancies (14)
+      </span> Vacancies ({{ total_jobs }})
     </h3>
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
@@ -102,9 +102,24 @@
             <div class="row">
               <div class="stretch-card" style="margin-top: -20px;">
                 
+                {% if data.job.is_active %}
                 <a class="btn btn-inverse-success btn-rounded btn-md"
-                style="height: 24px !important; padding: 5px !important; width: 100px !important; font-size: 12px;" href="{% url 'edit-job' %}">Active</a>
+                style="height: 24px !important; padding: 5px !important; width: 100px !important; font-size: 12px;" href="{% url 'edit-job' data.job.id %}">Active</a>
+
+                {% else %}
+                <a class="btn btn-inverse-danger btn-rounded btn-md"
+                style="height: 24px !important; padding: 5px !important; width: 100px !important; font-size: 12px;" href="{% url 'edit-job' data.job.id %}">Expired</a>
+
+                {% endif %}
+
+                {% if data.posted > 0 %}
+
                 <p class="text-success" style="margin-left: 10px;">Posted 12 days Ago</p>
+
+                {% else %}
+                <p class="text-success" style="margin-left: 10px;">Posted today</p>
+
+                {% endif %}
                 <p class="text-muted" style="margin-left: 20px;">Ref: <span class="card-title">{{ data.job.id }}</span></p>
                 <h6 class="text-muted" style="margin-left: 30px;">{{ data.job.department }} Dept</h6>
                 <h6 class="text-muted" style="margin-left: 20px;"><i class="mdi mdi-account"></i> {{ data.applicants }} Applicants</h6>

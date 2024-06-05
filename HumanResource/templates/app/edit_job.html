@@ -29,82 +29,83 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Data Scientist</h4>
-            <form class="forms-sample">
+            <form class="forms-sample" method="post">
+
+                {% csrf_token %}
 
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Recruiting</label>
                     <div class="col-sm-4">
-                      <div class="form-check">
+                      <div class="form-check form-check-success">
                         <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="membershipRadios" id="active" value="" checked> Active</label>
+                          <input type="radio" class="form-check-input" name="recruiting" id="active" value="True" checked> Active</label>
                       </div>
                     </div>
                     <div class="col-sm-5">
-                      <div class="form-check">
+                      <div class="form-check form-check-danger">
                         <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="membershipRadios" id="expired" value="option2">Expired</label>
+                          <input type="radio" class="form-check-input" name="recruiting" id="expired" value="False">Expired</label>
                       </div>
                     </div>
                 </div>
 
               <div class="form-group">
                 <label for="exampleInputName1">Job Title</label>
-                <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                <input type="text" class="form-control" name="jobTitle" placeholder="Name", value="{{job.job_title}}">
               </div>
 
               <div class="form-group">
                 <label>Depertment</label>
-                <select class="js-example-basic-single" style="width:100%">
-                  <option value="HR">Human Resource</option>
-                  <option value="IT">Information Technology</option>
-                  <option value="Marketing">Marketing</option>
-                  <option value="Finance">Finance</option>
-                  <option value="R&D">Research and Development</option>
+                <select class="js-example-basic-single" style="width:100%"  name="department">
+                  <option value="HR" {% if job.department == 'HR' %} selected {% endif %}>Human Resource</option>
+                  <option value="IT" {% if job.department == 'IT' %} selected {% endif %}>Information Technology</option>
+                  <option value="Marketing" {% if job.department == 'Marketing' %} selected {% endif %}>Marketing</option>
+                  <option value="Finance" {% if job.department == 'Finance' %} selected {% endif %}>Finance</option>
+                  <option value="R&D" {% if job.department == 'R&D' %} selected {% endif %}>Research and Development</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label for="exampleInputCity1">Salary ($)</label>
-                <input type="number" class="form-control" id="exampleInputCity1" placeholder="Salary">
+                <input type="number" class="form-control" name="salary"placeholder="Salary" value="{{job.salary}}">
               </div>
 
               
 
               <div class="form-group">
                 <label>Location</label>
-                <select class="js-example-basic-single" style="width:100%">
-                  <option value="Nairobi, Kenya">Nairobi, Kenya</option>
-                  <option value="California, US">California, US</option>
-                  <option value="London, UK">London, UK</option>
-                  <option value="San fransisco, US">San fransisco, US</option>
-                  <option value="Cape Town, SA">Cape Town, SA</option>
+                <select class="js-example-basic-single" style="width:100%" name="location">
+                  <option value="Nairobi, Kenya" {% if job.location == 'Nairobi, Kenya' %} selected {% endif %}>Nairobi, Kenya</option>
+                  <option value="California, US" {% if job.location == 'California, US' %} selected {% endif %}>California, US</option>
+                  <option value="London, UK" {% if job.location == 'London, UK' %} selected {% endif %}>London, UK</option>
+                  <option value="San fransisco, US" {% if job.location == 'San fransisco, US' %} selected {% endif %}>San fransisco, US</option>
+                  <option value="Cape Town, SA" {% if job.location == 'Cape Town, SA' %} selected {% endif %}>Cape Town, SA</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label for="exampleTextarea1">Introduction</label>
-                <textarea class="form-control" id="exampleTextarea1" rows="3"></textarea>
+                <textarea class="form-control" name="introduction" rows="3">{{job.introduction}}</textarea>
               </div>
 
               
               
               <div class="form-group">
                 <label for="exampleTextarea1">Brief Posting Description</label>
-                <textarea class="form-control" id="exampleTextarea1" rows="3"></textarea>
+                <textarea class="form-control" name="description" rows="3">{{job.brief_posting_description}}</textarea>
               </div>
 
               <div class="form-group">
                 <label for="exampleTextarea1">Responsibilities</label>
-                <textarea class="form-control" id="exampleTextarea1" rows="12"></textarea>
+                <textarea class="form-control" name="responsibilities" rows="12">{{job.responsibilities}}</textarea>
               </div>
 
               <div class="form-group">
                 <label for="exampleTextarea1">Qualifications</label>
-                <textarea class="form-control" id="exampleTextarea1" rows="8"></textarea>
+                <textarea class="form-control" name="qualifications" rows="8">{{job.qualifications}}</textarea>
               </div>
 
-              <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
-              <button class="btn btn-light">Cancel</button>
+              <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
             </form>
           </div>
         </div>
