@@ -50,7 +50,7 @@ class NewJob(View):
 
         if job_title:
             if department:
-                if salary is not '' and int(salary) > 0:
+                if salary != '' and int(salary) > 0:
                     if location:
                         if introduction:
                             if description:
@@ -111,7 +111,7 @@ class EditJob(View):
         if job:
             if job_title:
                 if department:
-                    if salary is not '' and int(salary) > 0:
+                    if salary != '' and int(salary) > 0:
                         if location:
                             if introduction:
                                 if description:
@@ -165,6 +165,15 @@ def job_detail_page(request, job_id):
         job = Job.objects.filter(id=job_id)[0]
         return render(request, 'app/job_detail.html', locals())
     except Exception as e:
+        print(e)
         return HttpResponse('Not Found')
+
+    
+class ApplyJob(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
 
 
