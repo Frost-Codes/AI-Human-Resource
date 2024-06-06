@@ -34,7 +34,7 @@ class Job(models.Model):
 
     # many-to-many relationship a job can have many shortlisted applicants and an applicant can be shortlisted
     # for many jobs
-    shortlist = models.ManyToManyField('Applicant', related_name='shortlisted_jobs', blank=True)
+    # shortlist = models.ManyToManyField('Applicant', related_name='shortlisted_jobs', blank=True)
 
     def __str__(self):
         return self.job_title
@@ -52,4 +52,14 @@ class Applicant(models.Model):
 
     def __str__(self):
         return self.first_name
+
+
+class ShortList(models.Model):
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE, related_name='shortlisted_jobs')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='shortlist')
+    score = models.IntegerField()
+    summary = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.applicant.first_name
 

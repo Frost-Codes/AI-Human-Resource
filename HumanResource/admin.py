@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Job, Applicant
+from .models import Job, Applicant, ShortList
 
 # Register your models here.
 
@@ -9,11 +9,16 @@ class JobModelAdmin(admin.ModelAdmin):
     list_display = [
         'job_title', 'is_active', 'department', 'salary', 'location', 'brief_posting_description',  'date_posted']
 
-    readonly_fields = ['shortlist']
-
 
 @admin.register(Applicant)
 class ApplicantModelAdmin(admin.ModelAdmin):
     list_display = [
-        'first_name', 'last_name', 'gender', 'email', 'country', 'job', 'cv', 'shortlisted_jobs'
+        'first_name', 'last_name', 'gender', 'email', 'country', 'job', 'cv'
+    ]
+
+
+@admin.register(ShortList)
+class ApplicantModelAdmin(admin.ModelAdmin):
+    list_display = [
+        'applicant', 'job', 'score', 'summary'
     ]

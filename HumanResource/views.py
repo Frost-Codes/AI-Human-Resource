@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from django.contrib import messages
-from .models import Job, Applicant
+from .models import Job, Applicant, ShortList
 import datetime
-import os
-
+import json
+from .utils import  consult_ai
 
 # Create your views here.
 
@@ -31,8 +31,15 @@ def home(request):
     return render(request, 'app/hr_dashboard.html', {'job_data': job_data, 'total_jobs': Job.objects.all().count()})
 
 
-def shortlist(request):
-    return render(request, 'app/shortlist.html')
+def shortlist(request, job_id):
+    job = Job.objects.get(id=job_id)
+    # applicants = Job.objects.get(id=1).applicants.all()
+    # for applicant in applicants:
+    #     response = json.loads(consult_ai(job=job, cv_path=applicant.cv))
+    #     print(response)
+    #     print(type(json.loads(response)))
+
+    return render(request, 'app/shortlist.html', locals())
 
 
 class NewJob(View):
@@ -207,4 +214,29 @@ class ApplyJob(View):
         return render(request, 'app/apply_job.html', locals())
 
 
+def shortlist_candidates(request, job_id):
+    try:
+        job = Job.objects.get(id=job_id)
+    except Exception as e:
+        return HttpResponse("Job not found")
+
+    try:
+        ShortList.objects.filter(job=job_id).delete()
+        applicants = job.applicants.all()
+        for applicant in applicants:
+            response = json.loads(consult_ai(job=job, cv_path=applicant.cv))
+
+            if response['score'] > 80:
+                new_shortlist = ShortList.objects.create(job=job, applicant=applicant,
+                                                         score=response['score'], summary=response['summary'])
+                new_shortlist.save()
+
+    except Exception as e:
+        messages.warning(request, 'Unable to shortlist candidates')
+        print(e)
+
+    return redirect('shortlist', job_id=job_id)
+
+
+# TODO: Display shortlisted candidates
 
