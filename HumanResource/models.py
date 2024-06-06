@@ -8,7 +8,7 @@ departments = (('HR', 'Human Resource'), ('IT', 'Information Technology'), ('Mar
                ('Finance', 'Finance'), ('R&D', 'Research and Development'))
 
 locations = (('Nairobi, Kenya', 'Nairobi, Kenya'), ('California, US', 'California, US'),
-             ('London, UK', 'London UK'), ('San fransisco, US', 'San fransisco, US'),
+             ('London, UK', 'London, UK'), ('San fransisco, US', 'San fransisco, US'),
              ('Cape Town, SA', 'Cape Town, SA'))
 
 genders = (('Male', 'Male'), ('Female', 'Female'), ('Prefer not to say', 'Prefer not to say'))

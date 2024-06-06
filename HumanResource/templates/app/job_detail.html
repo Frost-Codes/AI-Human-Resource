@@ -21,7 +21,7 @@
                         <h4 class="mb-0">{{ job.job_title }}</h4> <span>{{ job.location }}</span>
                     </div>
                 </div>
-                <a href="{% url 'job-detail' job.id %}" style="text-decoration: none;"><div class="badge"> <span>Apply</span> </div></a>
+                <a href="{% url 'apply-job' job.id %}" style="text-decoration: none;"><div class="badge"> <span>Apply</span> </div></a>
             </div>
             <div class="mt-2">
               <span class="text-muted">{{ job.date_posted }}</span>
