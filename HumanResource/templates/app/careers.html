@@ -1,140 +1,111 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %} Careers {% endblock title%} | AIHR</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/ti-icons/css/themify-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <!-- <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"> -->
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
-  </head>
-  <body style="background-color: rgb(228, 228, 228);">
-    <div class="container-scroller">
-      <!-- partial:../../partials/_navbar.html -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers| AI HR</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <style>
+      body {
+      background-color: #eee
+  }
 
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_sidebar.html -->
+  .card {
+      border: none;
+      border-radius: 10px
+  }
 
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
+  .c-details span {
+      font-weight: 300;
+      font-size: 13px
+  }
 
-            
+  .icon {
+      width: 50px;
+      height: 50px;
+      background-color: #eee;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 39px
+  }
 
-            {% if messages %}
-            {% for msg in messages %}
+  .badge span {
+      background-color: #fffbec;
+      width: 60px;
+      height: 25px;
+      padding-bottom: 3px;
+      border-radius: 5px;
+      display: flex;
+      color: #fed85d;
+      justify-content: center;
+      align-items: center
+  }
 
-            <div class="row" style="margin-bottom: 10px;">
-              <button type="button" class="btn btn-gradient-{{ msg.tags }}  btn-fw">{{ msg }}</button>
+  .progress {
+      height: 10px;
+      border-radius: 10px
+  }
+
+  .progress div {
+      background-color: red
+  }
+
+  .text1 {
+      font-size: 14px;
+      font-weight: 600
+  }
+
+
+  .text2 {
+      color: #a5aec0
+  }
+  </style>
+</head>
+<body>
+  <div class="container mt-5 mb-3">
+    <div class="row">
+      {% if jobs %}
+
+      {% for job in jobs %}
+
+      <div class="col-md-4">
+        <div class="card p-3 mb-2">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-row align-items-center">
+                    <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                    <div class="ms-2 c-details">
+                        <h4 class="mb-0">{{ job.job_title }}</h4> <span>{{ job.location }}</span>
+                    </div>
+                </div>
+                <a href="{% url 'job-detail' job.id %}" style="text-decoration: none;"><div class="badge"> <span>Apply</span> </div></a>
             </div>
-        
-            <!-- <button class="btn btn-{{ msg.tags }} mt-2 py-3">{{ msg }}</button> -->
-
-
-        
-            {% endfor %}
-            {% endif %}
-
-            <div class="row d-flex flex-row">
-
-
-                <div class="col-md-3 stretch-card grid-margin">
-                  <a class="btn" style="padding: 0px !important;" href="{% url 'shortlist' %}">
-                  <div class="card"  style="border-left: 5px solid pink; margin-top: 10px;">
-                    <div class="card-body" style="padding: 15px;">
-                      <h3><i class="mdi mdi-account-multiple-outline" style="color: pink;"></i> {{ data.shortlisted }}</h3>
-                            <div class="metric-value d-inline-block">
-                                <h6 class="mb-1">SHORTLISTED</h6>
-                            </div>
-                          
-                    </div>
-                  </div>
-                </a>
+            <div class="mt-2">
+              <span class="text-muted">{{ job.date_posted }}</span>
+            </div>
+            <div class="mt-2">
+                <div class="mt-2">
+                      <p>{{ job.brief_posting_description }}</p>
                 </div>
-                
-  
-                <div class="col-md-3 stretch-card grid-margin">
-                  <a class="btn" style="padding: 0px !important;" >
-                  <div class="card"  style="border-left: 5px solid rgb(255, 234, 0); margin-top: 10px;">
-                    <div class="card-body" style="padding: 15px;">
-                      <h3><i class="mdi mdi-arrow-right" style="color: rgb(255, 234, 0);"></i> 24</h3>
-                            <div class="metric-value d-inline-block">
-                                <h6 class="mb-1">IN PROGRESSION</h6>
-                            </div>
-                    </div>
-                  </div>
-                  </a>
-                </div>
-  
-                <div class="col-md-3 stretch-card grid-margin">
-                  <a class="btn" style="padding: 0px !important;" >
-                  <div class="card"  style="border-left: 5px solid rgb(0, 255, 234); margin-top: 10px;">
-                    <div class="card-body" style="padding: 15px;">
-                      <h3><i class="mdi mdi-check" style="color: rgb(0, 255, 234);"></i> 24</h3>
-                            <div class="metric-value d-inline-block">
-                                <h6 class="mb-1">OFFERED</h6>
-                            </div>
-                    </div>
-                  </div>
-                  </a>
-                </div>
-  
-                <div class="col-md-3 stretch-card grid-margin">
-                  <a class="btn" style="padding: 0px !important;" >
-                  <div class="card"  style="border-left: 5px solid rgb(0, 255, 55); margin-top: 10px;">
-                    <div class="card-body" style="padding: 15px;">
-                      <h3><i class="mdi mdi-thumb-up-outline" style="color: rgb(0, 255, 55);"></i> 24</h3>
-                            <div class="metric-value d-inline-block">
-                                <h6 class="mb-1">HIRED</h6>
-                            </div>
-                    </div>
-                  </div>
-                  </a>
-                </div>
-  
-  
-  
-              </div>
-
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:../../partials/_footer.html -->
-          <!-- partial -->
+            </div>
         </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
 
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{% static 'assets/js/off-canvas.js' %}"></script>
-    <script src="{% static 'assets/js/misc.js' %}"></script>
-    <script src="{% static 'assets/js/settings.js' %}"></script>
-    <script src="{% static 'assets/js/todolist.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.cookie.js' %}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
 
-    <!-- End custom js for this page -->
-  </body>
+
+      {%  endfor %}
+
+      {% else %}
+
+      <h4 class="mb-0">No vacancies available</h4>
+
+      {% endif %}
+        
+    </div>
+</div>
+</body>
 </html>

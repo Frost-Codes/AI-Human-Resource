@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from django.contrib import messages
 from .models import Job
@@ -156,6 +156,15 @@ class EditJob(View):
 
 
 def careers(request):
-    jobs = Job.objects.all()
-    return render(request, 'app/careers.html')
+    jobs = Job.objects.filter(is_active=True)
+    return render(request, 'app/careers.html', locals())
+
+
+def job_detail_page(request, job_id):
+    try:
+        job = Job.objects.filter(id=job_id)[0]
+        return render(request, 'app/job_detail.html', locals())
+    except Exception as e:
+        return HttpResponse('Not Found')
+
 
