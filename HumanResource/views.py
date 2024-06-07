@@ -33,6 +33,10 @@ def home(request):
 
 def shortlist(request, job_id):
     job = Job.objects.get(id=job_id)
+    shortlisted = job.shortlist.all().count()
+    short_list = job.shortlist.all()
+
+
     # applicants = Job.objects.get(id=1).applicants.all()
     # for applicant in applicants:
     #     response = json.loads(consult_ai(job=job, cv_path=applicant.cv))
