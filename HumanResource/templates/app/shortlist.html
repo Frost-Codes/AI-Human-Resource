@@ -38,6 +38,7 @@
                        {{ applicant.applicant.first_name }} {{ applicant.applicant.last_name}}</h4>
                     <h6 style="margin: 8px;"><i class="mdi mdi-map-marker-outline"></i>{{ applicant.applicant.country }}</h6> 
                     <small class="text-muted" style="margin: 8px;"><i class="mdi mdi-scale-balance"></i> Score: {{ applicant.score }}</small>
+                    <a href="{{ applicant.applicant.cv.url }}" class="btn btn-link btn-sm"> View CV</a>
                     
                 </div>
                 

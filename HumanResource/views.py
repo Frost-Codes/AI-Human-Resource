@@ -34,14 +34,7 @@ def home(request):
 def shortlist(request, job_id):
     job = Job.objects.get(id=job_id)
     shortlisted = job.shortlist.all().count()
-    short_list = job.shortlist.all()
-
-
-    # applicants = Job.objects.get(id=1).applicants.all()
-    # for applicant in applicants:
-    #     response = json.loads(consult_ai(job=job, cv_path=applicant.cv))
-    #     print(response)
-    #     print(type(json.loads(response)))
+    short_list = job.shortlist.all().order_by('-score')
 
     return render(request, 'app/shortlist.html', locals())
 
@@ -230,7 +223,7 @@ def shortlist_candidates(request, job_id):
         for applicant in applicants:
             response = json.loads(consult_ai(job=job, cv_path=applicant.cv))
 
-            if response['score'] > 80:
+            if response['score'] >= 80:
                 new_shortlist = ShortList.objects.create(job=job, applicant=applicant,
                                                          score=response['score'], summary=response['summary'])
                 new_shortlist.save()
@@ -240,7 +233,4 @@ def shortlist_candidates(request, job_id):
         print(e)
 
     return redirect('shortlist', job_id=job_id)
-
-
-# TODO: Display shortlisted candidates
 
